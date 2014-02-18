@@ -1,5 +1,8 @@
-arbuthnot <-
-structure(list(year = 1629:1710, boys = c(5218L, 4858L, 4422L, 
+# The Arbuthnot data set refers to Dr. John Arbuthnot, an 18th century physician, writer,
+# and mathematician. He was interested in the ratio of newborn boys to newborn girls, so he
+# gathered the christening records for children born in London for every year from 1629 to 1710.
+
+arbuthnot <- structure(list(year = 1629:1710, boys = c(5218L, 4858L, 4422L, 
 4994L, 5158L, 5035L, 5106L, 4917L, 4703L, 5359L, 5366L, 5518L, 
 5470L, 5460L, 4793L, 4107L, 4047L, 3768L, 3796L, 3363L, 3079L, 
 2890L, 3231L, 3220L, 3196L, 3441L, 3655L, 3668L, 3396L, 3157L, 
