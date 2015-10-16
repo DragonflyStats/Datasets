@@ -1,4 +1,6 @@
-DASI-mooc
+Experimental Design Topics
+
 =========
 
-DASI Mooc
+Central Composite Design
+Box Behnken Design
