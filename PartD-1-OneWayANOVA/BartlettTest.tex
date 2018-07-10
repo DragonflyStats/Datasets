@@ -1,0 +1,140 @@
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+	
+	Bartlett's Test for Homogeneity of Variances
+\begin{itemize}
+\item Bartlett's test (Snedecor and Cochran, 1983) is used to test if k samples have equal variances. 
+\item Equal variances across samples is called homogeneity of variances. 
+Some statistical tests, for example the analysis of variance, assume that variances are equal across groups or samples. 
+\item The Bartlett test can be used to verify that assumption.
+Bartlett's test is sensitive to departures from normality. 
+\item That is, if your samples come from non-normal distributions, then Bartlett's test may simply be testing for non-normality. The Levene test is an alternative to the Bartlett test that is less sensitive to departures from normality.
+\end{itemize}	
+
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+\frametitle{Bartlett’s test for Variances}
+%-  http://www.instantr.com/2012/12/12/performing-bartletts-test-in-r/
+Bartlett’s test
+\begin{itemize}
+\item Bartlett’s test allows you to compare the variance of two or more samples to determine whether they are drawn from populations with equal variance. It is suitable for normally distributed data. 
+\item The test has the null hypothesis that the variances are equal and the alterntive hypothesis that they are not equal.1
+\item This test is useful for checking the assumptions of an analysis of variance.
+\end{itemize}
+
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+	You can perform Bartlett’s test with the bartlett.test function. If your data is in stacked form (with the values for both samples stored in one variable), use the command:
+\begin{framed}
+\begin{verbatim}
+> bartlett.test(values~groups, dataset)
+\end{verbatim}
+\end{framed}
+where values is the name of the variable containing the data values and groups is the name of the variable that specifies which sample each value belongs too.
+\end{frame}
+
+\begin{frame}
+	
+\begin{framed}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+\begin{verbatim}
+> MyGrowthData
+   weight group
+1    4.17  ctrl
+2    5.58  ctrl
+3    5.18  ctrl
+4    6.11  ctrl
+5    4.50  ctrl
+...............
+30   5.26  trt1
+31   5.65  trt1
+...............
+80   4.76  trt2
+80   4.78  trt2
+...............
+\end{verbatim}
+\end{framed}
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+	If your data is in unstacked form (with the samples stored in separate variables) nest the variable names inside the list function as shown below.
+
+\begin{framed}
+	\begin{verbatim}
+> bartlett.test(list(dataset$sample1, 
+   dataset$sample2, dataset$sample3))
+\end{verbatim}
+\end{framed}
+%If you are unsure whether your data is in stacked or unstacked form, see the article Stacking a dataset in R for examples of data in both forms.
+
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+\frametitle{Bartlett’s test for Variances}
+ Bartlett’s test using the PlantGrowth data
+
+\begin{itemize}
+\item Consider the PlantGrowth dataset (included with R), which gives the dried weight of three groups of ten batches of plants, where each group of ten batches received a different treatment. 
+\item The weight variable gives the weight of the batch and the groups variable gives the treatment received (either ctrl, trt1 or trt2).
+% To view more information about the dataset, enter help(PlantGrowth). 
+\end{itemize}
+
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+	Bartlett’s test using the PlantGrowth data
+
+To view the data, enter the dataset name:
+\begin{framed}
+	\begin{verbatim}
+> PlantGrowth
+   weight group
+1    4.17  ctrl
+2    5.58  ctrl
+3    5.18  ctrl
+4    6.11  ctrl
+5    4.50  ctrl
+...............
+
+30   5.26  trt2
+\end{verbatim}
+\end{framed}
+Suppose you want to use Bartlett’s test to determine whether the the variance in weight is the same for all treatment groups. A significance level of 0.05 will be used.
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+To perform the test, use the command:
+\begin{framed}
+	\begin{verbatim}> bartlett.test(weight~group, PlantGrowth)
+This gives the output:
+        Bartlett test of homogeneity of variances
+
+data:  weight by group 
+Bartlett's K-squared = 2.8786, df = 2, p-value = 0.2371
+\end{verbatim}
+\end{framed}
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+	\begin{itemize}
+\item	From the output we can see that the p-value of 0.2371 is not less than the significance level of 0.05. 
+\item This means we cannot reject the null hypothesis that the variance is the same for all treatment groups.
+\item  This means that there is no evidence to suggest that the variance in plant growth is different for the three treatment groups.
+	\end{itemize}
+
+\end{frame}
+%--------------------------------------------------------------------------------------------%
+\begin{frame}[fragile]
+	\frametitle{Bartlett’s test for Variances}
+	Bartlett’s test using the PlantGrowth data
+	[1] Montgomery, D.C. and Runger, G.C., 2007. Applied Statistics and Probability for Engineers, 4th ed. John Wiley & Sons.

@@ -1,0 +1,383 @@
+\documentclass[12pt]{article}
+
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphics}
+\usepackage{graphicx}
+\voffset=-1.5cm
+\oddsidemargin=0.0cm
+\textwidth = 470pt
+\title{Inference Procedures}
+%\author{MA4605}
+\begin{document}
+	
+	\subsection*{One-Way Analysis of Variance}
+	A One-Way Analysis of Variance is a way to test the equality of three or more means at one time by using variances. We will show how to test for these assumtptions in a fortcoming class.
+	
+	\begin{framed}
+	\noindent \textbf{Assumptions}
+	
+	\begin{itemize}
+		\item The populations from which the samples were obtained must be normally or approximately normally distributed. (\textit{Any Test for Normality}).
+		\item The samples must be independent.
+		\item The variances of the populations must be equal. (\textit{Bartlett Test for Homogeneity of Variances}).
+	\end{itemize}
+	\end{framed}
+	
+\noindent	\textbf{Hypotheses}
+	\begin{itemize}
+\item The null hypothesis will be that all population means are equal
+\[\mu_1 =\mu_2 = \ldots = \mu_k\]
+\item The alternative hypothesis is that at least one mean is different.
+	\end{itemize}
+
+	%----------------------------------------------------------- %
+\newpage	
+	\section*{ANOVA: One Way ANOVA \texttt{R} Example }
+	
+	Assume that we have three fertilizers to be tested. We wish to determine if there is any difference is the mean yields for the three different types of fertilizer.
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Fertilizer	A	&	5.6	&	6.4	&	6.6	&	5.8	\\ \hline
+			Fertilizer	B	&	5.1	&	6.2	&	6.4	&	5.7	\\ \hline
+			Fertilizer	C	&	5.0	&	6.1	&	5.8	&	5.5	\\ \hline
+		\end{tabular} 
+	\end{center}
+	The following \texttt{R} output is a One-Way ANOVA procedure for testing multiple means.
+	
+	\begin{framed}
+		\begin{verbatim}
+		Fert <- c("A", "A", "A", "A", "B", "B", "B", "B", 
+		"C", "C", "C", "C")
+		Yield <- c(5.6, 6.4, 6.6, 5.8, 5.1, 6.2, 6.4, 5.7, 
+		5, 6.1, 5.8, 5.5)
+		
+		ModelA=aov(Yield~Fert)
+		\end{verbatim}
+	\end{framed}
+	\noindent \textbf{Hypotheses}
+	\begin{description}
+		\item[H$_0$] $\mu_A$, $\mu_B$ \& $\mu_C$ are all equal.
+		\item[H$_1$] At least one of the means is different from the rest.
+	\end{description}	
+	\begin{verbatim}
+	> summary(aov(Yield~Fert))
+	              Df Sum Sq Mean Sq F value Pr(>F)
+	Fert         2   0.50  0.2500   0.957   0.42
+	Residuals    9   2.35  0.2611 
+	\end{verbatim}
+	Further to this test, we conclude that there are no differences between the three fertilizer types, based on the high $p-$value.
+
+\newpage
+	
+
+	
+
+	
+
+		
+	\subsection*{Two-Way ANOVA}
+	
+	The two-way analysis of variance is an extension to the one-way analysis of variance. There are two independent variables (hence the name two-way).
+	\subsection*{Factors}
+	
+	The two independent variables in a two-way ANOVA are called factors. The idea is that there are two variables, factors, which affect the dependent variable. Each factor will have two or more levels within it, and the degrees of freedom for each factor is one less than the number of levels.	
+	\subsection*{Assumptions}
+		\begin{itemize}
+		\item The populations from which the samples were obtained must be normally or approximately normally distributed.
+		\item The samples must be independent.
+		\item The variances of the populations must be equal.
+		\item The groups must have the same sample size.
+	\end{itemize}
+			\subsection*{Treatment Groups}
+			\begin{itemize}
+				\item Treatement Groups are formed by making all possible combinations of the two factors. 
+				\item For example, if the first factor has 3 levels and the second factor has 2 levels, then there will be $3\times 2=6$ different treatment groups.
+				\item There may be more than one observation per treatment group.
+			\end{itemize}
+	\subsection*{Hypotheses}
+	
+	There are two (sometimes three) sets of hypothesis with the two-way ANOVA. The null hypotheses for each of the sets are given below.
+	
+	\begin{itemize}
+		\item[i)] The population means of the first factor are equal. This is like the one-way ANOVA for the row factor.
+		
+		\item[ii)] The population means of the second factor are equal. This is like the one-way ANOVA for the column factor.
+		
+		\item[iii)] There is no interaction between the two factors. This is similar to performing a test for independence with contingency tables.
+		
+	\end{itemize}
+	
+	\noindent \textbf{Important} It is only possile to test for an interaction effect in the presence of replicate measurements for each \textbf{treatment group}.
+	
+%		\subsubsection*{Factors	}
+%		The two independent variables in a two-way ANOVA are called \textit{\textbf{factors}}. The idea is that there are two variables, factors, which affect the dependent variable. Each factor will have two or more levels within it, and the degrees of freedom for each factor is one less than the number of levels.
+		
+		\subsection*{Main Effect}
+		
+		\begin{itemize}
+			\item The main effect involves the independent variables separately. 
+			\item The interaction is ignored for this part. Just the rows or just the columns are used, not mixed. 
+			\item This is the part which is similar to the one-way analysis of variance. 
+			\item Each of the variances calculated to analyze the main effects are like the between variances
+		\end{itemize}
+		
+		\subsection*{Interaction Effect}
+		
+		The interaction effect is the effect that one factor has on the other factor. The degrees of freedom here is the product of the two degrees of freedom for each factor.
+		
+
+		
+
+
+\newpage	
+	\subsection*{Corn Seed Example}
+	As an example, let's assume we're planting corn. The type of seed and type of fertilizer are the two factors we're considering in this example. 
+	
+	\begin{itemize}
+		\item This example has 15 treatment groups. \item There are $3-1=2$ degrees of freedom for the type of seed, and $5-1=4$ degrees of freedom for the type of fertilizer. 
+		\item There are $2\times 4 = 8$ degrees of freedom for the interaction between the type of seed and type of fertilizer.
+	\end{itemize}
+\noindent The data that actually appears in the table are samples. In this case, \textbf{two} samples from each treatment group were taken. ( Important: It is possible to compute the interaction effect.)
+	
+	\begin{center}
+		\begin{tabular}{|c||c|c|c|c|c|}
+			\hline 
+			&	Fert I	&	Fert II	&	Fert III	&	Fert IV	&	Fert V	\\	\hline
+			Seed A	&	106, 110	&	95, 100	&	94, 107	&	103, 104	&	100, 102	\\	\hline
+			Seed B	&	110, 112	&	98, 99	&	100, 101	&	108, 112	&	105, 107	\\	\hline
+			Seed C	&	94, 97	&	86, 87	&	98, 99	&	99, 101	&	94, 98	\\	\hline
+		\end{tabular} 
+	\end{center}
+
+		
+	\subsubsection*{Within Variation}
+	
+	The Within variation is the sum of squares within each treatment group. You have one less than the sample size (remember all treatment groups must have the same sample size for a two-way ANOVA) for each treatment group. The total number of treatment groups is the product of the number of levels for each factor. The within variance is the within variation divided by its degrees of freedom.
+	
+	%The within group is also called the error.
+	
+	\subsubsection*{F-Tests}
+	
+	There is an F-test for each of the hypotheses, and the F-test is the mean square for each main effect and the interaction effect divided by the within variance. The numerator degrees of freedom come from each effect, and the denominator degrees of freedom is the degrees of freedom for the within variance in each case.
+
+	
+	
+
+	\newpage
+\section*{Two-Way ANOVA Table (Without Interaction)}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.1\linewidth]{TwoWayANOVA-Table1}
+\end{figure}
+	\newpage
+	\section*{Two-Way ANOVA Table (With Interaction)}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.1\linewidth]{TwoWayANOVA-Table2}
+\end{figure}
+	\newpage
+\section*{Given Information for Two-Way ANOVA Table}
+The following pieces of information will be given in an exam question for Two -Way ANOVA (without Replication). With this information , you should be able to construct the ANOVA table.
+	\[ \mbox{MS}_{Trt} = c \times S^2_{R}\]
+	\[ \mbox{MS}_{Block} = r \times S^2_{C}\]
+
+	\begin{itemize}
+		\item $r$ and $c$ are the numbers of rows and columns respectively.
+		\item $S^2_{R}$ is the variance of the Row means 
+		\item $S^2_{C}$ is the variance of the column means.
+	\end{itemize}
+	
+	Take care when working with calculations that involve $r$ and $c$: 
+	$r$ is the number of rows, which is the number of subgroups for each of the treatments (which are arranged along the columns).
+	$c$ is the number of columns, which is the number of subgroups for each of the blocks (which are arranged along the rows).
+	
+\section*{ANOVA: Worked Example with \texttt{R}}
+\begin{itemize}
+	\item A standard solution was prepared, containing 16.00\% (by weight) of chloride. Three titration methods, each with a different technique of end-point determination, were used to analyse the standard solution.
+	\item The procedure was carried out by four different clinical analysts. The order of the experiments was randomized. The results for the chloride found (\% w/w) are shown below:
+	
+\end{itemize}
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline 	& Analyst 1	&Analyst 2	&Analyst 3	&Analyst 4	\\ \hline
+		Method A	&	16.03	&	16.05	&	16.02	&	16.12	\\ \hline
+		Method B	&	16.13	&	16.13	&	15.94	&	15.97	\\ \hline
+		Method C	&	16.09	&	16.15	&	16.12	&	16.1	\\ \hline
+	\end{tabular}
+\end{center}
+\begin{itemize}
+	\item Here the treatment is the titration method and we are interested in determining if there is uniformity between each method. Four analysts performed an experiment using each of the titration methods. This allows the analysts to remove any effect due to the analysts.
+	
+	\item To construct the model using \texttt{R}, we use the \texttt{aov()} command, specifying the treatment factor and the blocking. Importantly we express the model additively (i.e "\texttt{. . Meth+Anlt..}" ).
+\end{itemize}
+
+
+\begin{framed}
+	\begin{verbatim}
+	> Model=aov(Titr ~ Meth + Anlt) 
+	> 
+	> summary(Model) 
+	Df  Sum Sq   Mean Sq  F value Pr(>F)    
+	Meth           2  0.01202  0.006008 1.279   0.345  
+	Anlt           3  0.01109  0.003697 0.787   0.543  
+	Residuals      6  0.02818  0.004697   
+	
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+	\end{verbatim}
+\end{framed}
+\begin{itemize}
+	\item This additive model is the appropriate specification if an interaction is not assumed. 
+	\item However - It is ususal for an interaction effect to be accounted for in such experiments.
+	A variant of this \texttt{R} implementation, that does specify an interaction term, will be discussed in due course.
+	\item 
+	Our conclusion of this procedure is that there is no difference in the titration method (i.e. there is no effect due to method) based on the high $p-$values  (0.345).
+	\item We also conclude that there is no effect due to whcih analyst is perfoming the experiment (p-value $=0.543)$.
+\end{itemize}
+	\subsection*{Two Way ANOVA table for Crop Example}
+	
+	%The following results are calculated using the Quattro Pro spreadsheet. It provides the p-value and the critical values are for alpha = 0.05.
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline Source of Variation	&	SS	&	df	&	MS	&	F	&	P-value	&	\textit{F-crit}		\\	\hline
+			Seed	&	512.8667	&	2	&	256.4333	&	28.283	&	0.000008	&	\textit{3.682}		\\	\hline
+			Fertilizer	&	449.4667	&	4	&	112.3667	&	12.393	&	0.000119	&	\textit{3.056}		\\	\hline
+		\end{tabular} 	 	 	 
+	\end{center}
+	
+	From the above results, we can see that the main effects are both significant, but the interaction between them isn't. That is, the types of seed aren't all equal, and the types of fertilizer aren't all equal, but the type of seed doesn't interact with the type of fertilizer.
+
+
+
+%--------------------------------------------------------------------- %
+\newpage
+\subsection*{Completing a Two-Way ANOVA Table (with Replication)}
+%	\begin{itemize}
+%		\item It is assumed that main effect A has a levels (and A = a-1 df), main effect B has b levels (and B = b-1 df), n is the sample size of each treatment, and N = abn is the total sample size. \item Notice the overall degrees of freedom is once again one less than the total sample size.
+%	\end{itemize}
+	
+	
+If you are required to complete a two-way table, based on partial data, be mindful of the following.
+	
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline Source	&	SS	&	df	&	MS	&	F	\\	\hline \hline
+		Main Effect A	&	\phantom{given}	&	A,	&	SS / df	&	MS(A) / MS(W)	\\	
+		&		&	a-1	&		&		\\	\hline
+		Main Effect B	&	\phantom{given}		&	B,	&	SS / df	&	MS(B) / MS(W)	\\	
+		&		&	b-1	&		&		\\	\hline
+		Interaction Effect	&	\phantom{given}		&	A*B,	&	SS / df	&	MS(A*B) / MS(W)	\\	
+		&		&	(a-1)(b-1)	&		&		\\	\hline
+		Within	&	\phantom{given}		&	N - ab,	&	SS / df	&		\\	
+		&		&	ab(n-1)	&		&		\\	\hline
+		Total	&	sum of others	&	N - 1,	&		&		\\	
+		&		&	abn - 1	&		&		\\	\hline
+		
+	\end{tabular} 	 	 
+	
+
+
+%===========================================================================%
+\newpage
+	
+
+
+
+\section*{ANOVA: Two Way Table with Blocking}
+
+\begin{framed}
+\noindent \textit{\textbf{Blocking:} The block is a factor. The main aim of blocking is to reduce the unexplained variation of an experimental design (compared to non-blocked design). We are not interested in the block effect per se , rather we block when we suspect the the background "noise" would counfound the effect of the actual factor.}\\
+\textit{We will arrange blocks along the columns ( they will be Factor B)}
+\end{framed}
+\bigskip
+
+After examining the previous statistical output, an agricultural analysts points out that there should a blocking to account for the different types of field. 
+\begin{itemize}
+\item Field 1 is very boggy, 
+\item Field 2 and Field 3 are reasonably good,
+\item Field 4 is full of rocks.
+\end{itemize}
+The procedure was carried out again. Three plots of land in each field were given the fertilizer treatment.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+ 	&	Block 1	&	Block 2	&	Block 3	&	Block 4	\\ \hline
+Fertilizer	A	&	5.6	&	6.4	&	6.6	&	5.8	\\ \hline
+Fertilizer	B	&	5.1	&	6.2	&	6.4	&	5.7	\\ \hline
+Fertilizer	C	&	5.0	&	6.1	&	5.8	&	5.5	\\ \hline
+\end{tabular} 
+\end{center}
+The following \texttt{R} output is a Two-Way ANOVA procedure for analysing this data.
+
+\begin{framed}
+\begin{verbatim}
+Fert <- c("A", "A", "A", "A", "B", "B", "B", "B", 
+"C", "C", "C", "C")
+Yield <- c(5.6, 6.4, 6.6, 5.8, 5.1, 6.2, 6.4, 5.7, 
+5, 6.1, 5.8, 5.5)
+Block <- c("Bk1","Bk2","Bk3","Bk4","Bk1","Bk2","Bk3","Bk4",
+"Bk1","Bk2","Bk3","Bk4")
+
+ModelB=aov(Yield~Fert+Block)
+\end{verbatim}
+\end{framed}
+
+
+This output informs us that there is a difference between fertilizer treatments, contrary to what was previously thought. (There is a very important difference between fields also, but not of interest)
+\begin{framed}
+\begin{verbatim}
+> summary(ModelB)
+            Df Sum Sq Mean Sq F value   Pr(>F)    
+Fert         2 0.5000  0.2500   10.23 0.011667 *  
+Block        3 2.2033  0.7344   30.05 0.000519 ***
+Residuals    6 0.1467  0.0244                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+\end{verbatim}
+\end{framed}
+
+\noindent \textbf{Conclusion :} While there is an effect for Ferilizer. There is aslo a significant effect for the blocks. The yeild rate does depend on the type of field that the experiment was carried out in.
+\newpage
+
+\section*{ANOVA: Exercise with \texttt{R}}
+Four laboratory technicians performed six determination of $C$ of 2,4 dinitrophenol in water, according to the same specified procedure.
+The results in $C/ \mu M$ are as follows
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline Analyst A	&	Analyst B	&	Analyst C	&	Analyst D	\\ \hline
+701	&	550	&	511	&	613	\\ \hline
+677	&	545	&	523	&	623	\\ \hline
+680	&	573	&	540	&	649	\\ \hline
+660	&	532	&	542	&	632	\\ \hline
+654	&	529	&	559	&	614	\\ \hline
+648	&	534	&	554	&	626	\\ \hline
+\end{tabular} 
+\end{center}
+The analysis of variance procedure is used to determine
+if there is a significiant difference between the mean of the
+determinations makde by the four investigators.
+
+
+\begin{framed}
+\begin{verbatim}
+summary(aov(Det~Anlt))
+            Df Sum Sq Mean Sq  F value   Pr(>F)    
+Anlt         3  99942   33314   .....    4.64e-12 ***
+Residuals   ..   6918     346                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+\end{verbatim}
+\end{framed}
+
+\begin{itemize}
+\item[(a)] The value for the degrees of freedom for residuals has been removed from the output. What is this value?
+\item[(b)] The value for the test statistics (\texttt{F value}) has been removed from the output. What is this value?
+\item[(c)] State the null and alternative hypothesis for this procedure.
+\item[(d)] Based on the $p-$value, what is your conclusion for this procedure.
+\end{itemize}
+\end{document}

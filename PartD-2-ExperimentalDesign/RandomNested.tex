@@ -1,0 +1,628 @@
+\documentclass[serif]{beamer} % Get Computer Modern math font.
+\hypersetup{colorlinks,linkcolor=,urlcolor=red}
+
+%  To create handout using article mode: Comment above and uncomment below (2 places)
+%\documentclass[12pt]{article}
+%\usepackage{beamerarticle}
+%\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue, citecolor=blue, urlcolor=red]{hyperref} % For live Web links with href in article mode
+%\usepackage{amsmath} % For \binom{n}{y}
+%\usepackage{graphicx} % To include pdf files!
+%\usepackage{fullpage}
+
+
+\usefonttheme{serif} % Looks like Computer Modern for non-math text -- nice!
+\setbeamertemplate{navigation symbols}{} % Suppress navigation symbols
+% \usetheme{Berlin} % Displays sections on top
+\usetheme{Frankfurt}  % Displays section titles on top: Fairly thin but still swallows some material at bottom of crowded slides
+%\usetheme{Berkeley}
+
+
+\usepackage{graphpap} % For graph paper in picture
+\usepackage[english]{babel}
+\usepackage{amsmath} % for binom
+% \usepackage{graphicx} % To include pdf files!
+% \definecolor{links}{HTML}{2A1B81}
+% \definecolor{links}{red}
+\setbeamertemplate{footline}[frame number] 
+
+\mode<presentation>
+% \mode<handout>{\setbeamercolor{background canvas}{bg=black!5}}
+
+% Comment this out for handout
+\title{Random Effects, Mixed Effects and Nested Models\footnote{See last slide for copyright information.}}
+\subtitle{STA442/2101 Fall 2012}
+\date{} % To suppress date
+
+
+% Trying to shift big equations a bit to the left
+\setbeamersize{text margin left = 0.5cm}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Background Reading}
+%\framesubtitle{It may be a little bit helpful.} 
+  \begin{itemize}
+    \item Davison's \emph{Statistical models}: Section 9.4
+    \item The White Whale: Chapters 25 and 26
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Random Effects}
+
+
+\begin{frame}
+\frametitle{General Mixed Linear Model}
+{\LARGE
+\begin{displaymath}
+    \mathbf{Y}~=~\mathbf{X} \boldsymbol{\beta} ~+~ \mathbf{Zb} ~+~\boldsymbol{\epsilon}
+\end{displaymath} }
+\begin{itemize}
+    \item $\mathbf{X}$ is an $n \times p$ matrix of known constants
+    \item $\boldsymbol{\beta}$ is a $p \times 1$ vector of unknown constants.
+    \item $\mathbf{Z}$ is an $n \times q$ matrix of known constants
+    \item $\mathbf{b} \sim N_q(\mathbf{0},\boldsymbol{\Sigma}_b)$ with $\boldsymbol{\Sigma}_b$ unknown but often diagonal
+    \item $\boldsymbol{\epsilon} \sim N(\mathbf{0},\sigma^2 \mathbf{I}_n)$ , where $\sigma^2 > 0$ is an unknown constant.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Random vs. fixed effects}
+{\LARGE
+\begin{displaymath}
+    \mathbf{Y}~=~\mathbf{X} \boldsymbol{\beta} ~+~ \mathbf{Zb} ~+~\boldsymbol{\epsilon}
+\end{displaymath} }
+\begin{itemize}
+    \item Elements of $\boldsymbol{\beta}$ are called fixed effects.
+    \item Elements of $\mathbf{b}$ are called random effects.
+    \item Models with both are called \emph{mixed}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Main application}
+%\framesubtitle{} 
+A random factor is one in which the values of the factor are a random sample from a populations of values.
+  \begin{itemize}
+    \item Randomly select 20 fast food outlets, survey customers in each about quality of the fries. Outlet is a random effects factor with 20 values. % Amount of salt would be a fixed effects factor.
+    \item Randomly select 10 schools, test students at each school. School is a random effects factor with 10 values.
+    \item Randomly select 15 naturopathic medicines for arthritis (there are quite a few), and then randomly assign arthritis patients to try them. Drug is a random effects factor.
+    \item Randomly select 15 lakes. In each lake, measure how clear the water is at 20 randomly chosen points. Lake is a random effects factor.
+  \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{One Random Factor}
+
+\begin{frame}
+\frametitle{One random factor}
+\framesubtitle{A nice simple example} 
+  \begin{itemize}
+    \item Randomly select 6 farms.
+    \item Randomly select 10 cows from each farm, milk them, and record the amount of milk from each one.
+    \item The one random factor is Farm.
+    \item Total $n=60$
+  \end{itemize}
+  
+The idea is that ``Farm" is a kind of random shock that pushes all the amounts of milk in a particular farm up or down by the same amount. 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Farm is a random shock}
+\framesubtitle{White Whale Equation 25.38, p. 1047 (almost)} 
+{\LARGE
+\begin{displaymath}
+    Y_{ij} = \mu_. + \tau_i + \epsilon_{ij},
+\end{displaymath} }
+where
+  \begin{itemize}
+    \item[] $\mu_.$ is an unknown constant parameter
+    \item[] $\tau_i \sim N(0,\sigma^2_\tau)$
+    \item[] $\epsilon_{ij} \sim N(0,\sigma^2)$
+    \item[] $\tau_i$ and $\epsilon_{ij}$ are all independent.
+    \item[] $\sigma^2_\tau \geq 0$ and $\sigma^2 > 0$ are unknown parameters.
+    \item[] $i=1, \ldots q$ and $j=1, \ldots, k$ 
+    \item[] There are $q=6$ farms and $k=10$ cows from each farm.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{General Mixed Linear Model Notation}
+\begin{eqnarray*}
+     Y_{ij} & = &\mu_. + \tau_i + \epsilon_{ij} \\
+     \mathbf{Y} & = & \mathbf{X} \boldsymbol{\beta} ~+~ \mathbf{Zb} ~+~\boldsymbol{\epsilon}
+\end{eqnarray*} 
+
+\begin{displaymath}
+\left( \begin{array}{c}
+Y_{1,1} \\ Y_{1,2} \\ Y_{1,3} \\ \vdots \\ Y_{5,9} \\ Y_{5,10}
+\end{array} \right) ~=~
+\left( \begin{array}{c}
+1 \\ 1 \\ 1 \\ \vdots \\ 1 \\ 1
+\end{array} \right) (\mu_.) ~+~
+     \left( \begin{array}{c c c c c}
+                 1 & 0 & 0 & 0 & 0 \\
+                 1 & 0 & 0 & 0 & 0 \\
+                 1 & 0 & 0 & 0 & 0 \\
+  \vdots &    \vdots &    \vdots &    \vdots &    \vdots \\
+                 0 & 0 & 0 & 0 & 1 \\
+                 0 & 0 & 0 & 0 & 1 \\
+    \end{array} \right)
+ \left( \begin{array}{c}
+\tau_1 \\ \tau_2 \\ \tau_3 \\\tau_4 \\ \tau_5
+\end{array} \right) ~+~
+\left( \begin{array}{c}
+\epsilon_{1,1} \\ \epsilon_{1,2} \\ \epsilon_{1,3} \\ \vdots \\ \epsilon_{5,9} \\ \epsilon_{5,10}
+\end{array} \right)
+\end{displaymath}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Distribution of $Y_{ij} = \mu_. + \tau_i + \epsilon_{ij}$}
+%\framesubtitle{And associated statistics} 
+  \begin{itemize}
+    \item $Y_{ij} \sim N(\mu_.,\sigma^2_\tau+\sigma^2)$
+    \item $Cov(Y_{ij},Y_{i,j^\prime}) = \sigma^2_\tau$ for $j \neq j^\prime$
+    \item $Cov(Y_{ij},Y_{i^\prime,j^\prime}) = 0$ for $i \neq i^\prime$
+    \item Observations are not all independent.
+    \item Covariance matrix of $\mathbf{Y}$ is block diagonal: Matrix of matrices
+         \begin{itemize} 
+            \item Off-diagonal matrices are all zeros
+            \item Matrices on the diagonal ($k \times k$) have the \emph{compound symmetry} structure
+\begin{displaymath}
+     \left( \begin{array}{c c c}
+                 \sigma^2+\sigma^2_\tau & \sigma^2_\tau & \sigma^2_\tau \\
+                 \sigma^2_\tau & \sigma^2+\sigma^2_\tau  & \sigma^2_\tau   \\
+                 \sigma^2_\tau & \sigma^2_\tau &  \sigma^2+\sigma^2_\tau   \\
+     \end{array} \right)
+\end{displaymath}
+  (Except it's $10 \times 10$.)
+         \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistics based on $Y_{ij} = \mu_. + \tau_i +  \epsilon_{ij}$}
+\framesubtitle{And their distributions}
+\begin{center}
+\renewcommand{\arraystretch}{2.0}
+ \begin{tabular}{lcl}
+$\overline{Y}_i \sim N(\mu_., \frac{\sigma^2}{k} + \sigma^2_\tau)$ 
+&~& $Cov(\overline{Y}_i,Y_{ij}-\overline{Y}_i) = 0$ \\
+$SSTR = k\sum_{i=1}^q(\overline{Y}_i -\overline{Y}_. )^2$
+&~&
+$\frac{SSTR}{\sigma^2+k\sigma^2_\tau} \sim \chi^2(q-1)$ \\
+$SSE = \sum_{i=1}^q \sum_{j=1}^k(Y_{ij} - \overline{Y}_i )^2$
+&~&
+$\frac{SSE}{\sigma^2} \sim \chi^2(qk-q)$
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{center}
+Last  fact is true even though $Y_{ij}$ are not independent, because 
+\begin{displaymath}
+    \overline{Y}_i =  \mu_. + \tau_i +  \overline{\epsilon}_{i}
+\end{displaymath}
+\end{frame}
+
+\begin{frame}
+\frametitle{Expected mean squares}
+%\framesubtitle{} 
+Since $\frac{SSTR}{\sigma^2+k\sigma^2_\tau} \sim \chi^2(q-1)$, have
+$E\left(\frac{SSTR}{\sigma^2+k\sigma^2_\tau}\right) = q-1$.
+
+\begin{eqnarray*}
+   E(MSTR) & = & E\left( \frac{SSTR}{q-1}\right) \\
+                & = & E\left( \frac{\sigma^2+k\sigma^2_\tau}{q-1} \times
+                          \frac{SSTR}{\sigma^2+k\sigma^2_\tau} \right) \\
+                & = &  \frac{\sigma^2+k\sigma^2_\tau}{q-1} ~ E\left(
+                          \frac{SSTR}{\sigma^2+k\sigma^2_\tau} \right)
+                        \\
+                & = &  \frac{\sigma^2+k\sigma^2_\tau}{q-1} ~q-1 \\
+                & = &  \sigma^2+k\sigma^2_\tau
+\end{eqnarray*} 
+Similarly, $E(MSE) = \sigma^2$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Components of variance}
+The proportion of variance in performance explained by the school is
+\begin{displaymath}
+    Corr(Y_{ij},Y_{i,j^\prime}) = \frac{\sigma^2_\tau}{\sigma^2_\tau+\sigma^2}
+\end{displaymath}
+Estimate with
+\begin{displaymath}
+    \frac{MSTR-MSE}{MSTR+(k-1)MSE}
+\end{displaymath}
+
+\vspace{5mm}
+
+There is a confidence interval based on the $F$ distribution.
+\end{frame}
+
+\begin{frame}
+\frametitle{Testing $H_0:  \sigma^2_\tau = 0$}
+\framesubtitle{ $Y_{ij} = \mu_. + \tau_i +  \epsilon_{ij}$}
+
+Is this a strange thing to do?
+
+{\footnotesize
+\begin{center}
+\renewcommand{\arraystretch}{2.0}
+ \begin{tabular}{lll}
+$SSTR = k\sum_{i=1}^q(\overline{Y}_i -\overline{Y}_. )^2$
+& $\frac{SSTR}{\sigma^2+k\sigma^2_\tau} \sim \chi^2(q-1)$ 
+& $E(MSTR) = \sigma^2+k\sigma^2_\tau$\\
+$SSE = \sum_{i=1}^q \sum_{j=1}^k(Y_{ij} - \overline{Y}_i )^2$
+& $\frac{SSE}{\sigma^2} \sim \chi^2(qk-q)$
+& $E(MSE) = \sigma^2$
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{center}
+} % End size
+  \begin{itemize}
+    \item $SSTR$ and $SSE$ are independent.
+    \item If $H_0$ is true, $F^* = \frac{MSTR}{MSE} \sim F(q-1,qk-q)$
+    \item Expected mean squares suggest it will be big when $H_0$ is false.
+    \item It's the same as the $F$ statistic for a fixed effects model.
+    \item This is the only case where it happens.
+     \item And under $H_1$, the distribution is \emph{not} a non-central $F$.
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Distribution when $H_0: \sigma^2_\tau = 0$ is false}
+%\framesubtitle{ $Y_{ij} = \mu_. + \tau_i +  \epsilon_{ij}$}
+
+\begin{center}
+ \begin{tabular}{lll}
+$\frac{SSTR}{\sigma^2+k\sigma^2_\tau} \sim \chi^2(q-1)$ &~& 
+$\frac{SSE}{\sigma^2} \sim \chi^2(qk-q)$
+\end{tabular}
+\end{center}
+\vspace{5mm}
+  \begin{itemize}
+    \item Note $\frac{MSTR/(\sigma^2+k\sigma^2_\tau)}{MSE/\sigma^2}
+      \sim  F(q-1,qk-q)$ whether $H_0$ is true or not.
+    \item Reject when 
+  \end{itemize}
+\begin{eqnarray*}
+           && F^* = \frac{MSTR}{MSE} > f_c \\ &&\\
+          & \Leftrightarrow &
+          \frac{MSTR/(\sigma^2+k\sigma^2_\tau)}{MSE/\sigma^2}
+          > \frac{\sigma^2}{\sigma^2+k\sigma^2_\tau} ~ f_c
+\end{eqnarray*}
+% Good HW: Base on variance ratio
+Power is a tail area of the \emph{central} $F$ distribution.
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mixed Models}
+
+\begin{frame}
+\frametitle{Mixed models}
+\framesubtitle{The classical approach} 
+  \begin{itemize}
+    \item There can be both fixed and random factors in the same experiment
+    \item The interaction of any random factor with another factor (whether fixed or  random) is random.
+    \item $F$-tests are often possible, but they don't always use Mean Squared Error in the denominator of the F statistic.
+    \item Often, it's the Mean Square for some interaction term.
+    \item The choice of what error term to use is relatively mechanical for balanced models with equal sample sizes --- based on expected mean squares.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two-factor random effects: $A$ and $B$ both random}
+\framesubtitle{Equal sample sizes: $k$ per cell} 
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{rlc}  \hline
+Effect       &   Expected Mean Square &   $F$ test   \\ \hline
+$A$          & $\sigma^2 + kb\sigma^2_\alpha + k\sigma^2_{\alpha\beta}$ 
+& $\frac{MSA}{MSAB}$   \\ 
+$B$          & $\sigma^2 + ka\sigma^2_\beta + k\sigma^2_{\alpha\beta}$ 
+&  $\frac{MSB}{MSAB}$  \\ 
+$A \times B$ & $\sigma^2 + k\sigma^2_{\alpha\beta}$  &  $\frac{MSAB}{MSE}$  \\
+Error        & $\sigma^2$            &   
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mixed model: $A$ fixed and $B$ random}
+\framesubtitle{Equal sample sizes: $k$ per cell} 
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{rlc}  \hline
+Effect       &   Expected Mean Square &   $F$ test   \\ \hline
+$A$          & $\sigma^2 + kb\frac{\sum\alpha_i^2}{a-1} + k\sigma^2_{\alpha\beta}$ 
+& $\frac{MSA}{MSAB}$   \\ 
+$B$          & $\sigma^2 + ka\sigma^2_\beta$ 
+&  $\frac{MSB}{MSE}$  \\ 
+$A \times B$ & $\sigma^2 + k\sigma^2_{\alpha\beta}$  &  $\frac{MSAB}{MSE}$  \\
+Error        & $\sigma^2$            &   
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extensions to larger designs are natural}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item Mean squares are all independent, and multiples of chi-squared (if the design is balanced).
+    \item Look at expected mean squares to see which variance terms will cancel in numerator and denominator under $H_0$.
+    \item Calculation of expected mean squares can be automated.
+    \item Extends to nested designs.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Nested Factors}
+
+\begin{frame}
+\frametitle{A Nested design with fixed effects}
+\begin{picture} (100,100)(-100,0)
+% \graphpaper(0,0)(200,100) % Need \usepackage{graphpap}
+    \put(-55,120){School One}      % Co-ordinates of text lower left
+    \put (-30,110){\line(0,-1){100}} % Down from School One
+    % Co-ordinates, direction, length
+    \put(-80,40){\line(1,0){100}}  % Across under School One
+    \put(-80,40){\line(0,-1){30}}  % Branch to Teacher 1
+    \put(20,40){\line(0,-1){30}}  % Branch to Teacher 3
+    \put(-95,0){\tiny Teacher 1}
+    \put(-85,-10){\small $\mu_1$}
+    \put(-45,0){\tiny Teacher 2}
+    \put(-35,-10){\small $\mu_2$}
+    \put(5,0){\tiny Teacher 3}  
+    \put(15,-10){\small $\mu_3$}        
+    
+    \put(120,120){School Two}
+    \put (150,110){\line(0,-1){70}} % Down from School Two
+    \put(75,40){\line(1,0){150}}   % Across under School Two
+    \put(75,40){\line(0,-1){30}}   % Branch to Teacher 1 School 2
+    \put(125,40){\line(0,-1){30}}  % Branch to Teacher 2 School 2
+    \put(175,40){\line(0,-1){30}}  % Branch to Teacher 3 School 2
+    \put(225,40){\line(0,-1){30}}  % Branch to Teacher 4 School 2
+    \put(60,0){\tiny Teacher 1}
+    \put(70,-10){\small $\mu_4$}
+    \put(110,0){\tiny Teacher 2}
+    \put(120,-10){\small $\mu_5$}
+    \put(160,0){\tiny Teacher 3}
+    \put(170,-10){\small $\mu_6$}
+    \put(210,0){\tiny Teacher 4}
+    \put(220,-10){\small $\mu_7$}
+
+    \put(-95,-40){\small Schools $H_0: \frac{1}{3}(\mu_1+\mu_2+\mu_3) = \frac{1}{4}(\mu_4+\mu_5+\mu_6+\mu_7)$}
+        \put(-95,-60){\small Teachers within Schools  $H_0: \mu_1=\mu_2=\mu_3$ and $\mu_4=\mu_5=\mu_6=\mu_7$} 
+\end{picture}
+% Unbalanced design
+% Teachers(Schools) pools main effect for teachers AND the interaction
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tests of nested effects are tests of contrasts}
+
+You can specify the contrasts yourself, or you can take advantage of \texttt{proc glm}'s syntax for nested models.
+
+
+\begin{verbatim}
+proc glm;
+     class school teacher;
+     model score = school teacher(school);
+\end{verbatim} 
+
+The notation \texttt{teacher(school)} should be read ``teacher within school."
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Easy to extend the ideas}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item Can have more than one level of nesting.  You could have climate zones, 		lakes within climate zones, fishing boats within lakes, \ldots
+    \item There is no problem with combining nested and factorial structures.  You just have to keep track of what's nested within what.  
+    \item Factors that are not nested are sometimes called ``crossed."  
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nesting and random effects}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item Nested models are often viewed as random effects models, but there is no necessary connection between the two concepts.
+    \item It depends on how the study was conducted. Were the two schools randomly selected from some population of schools, or did someone just pick those two (maybe because there are just two schools)? 
+    \item Random effects, like fixed effects, can either be nested or not; it depends on the logic of the design.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sub-sampling}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item Sub-sampling is an interesting case of nested and purely random effects
+    \item For example, we take a random sample of towns, from each town we select a random sample of households, and from each household we select a random sample of individuals to test, or measure, or question.
+  \end{itemize}
+\end{frame}
+
+\begin{frame} 
+\frametitle{Another good example}
+\framesubtitle{Of sub-sampling} 
+  \begin{itemize}
+    \item We are studying waste water treatment, specifically the porosity of ``flocks," nasty little pieces of something floating in the tanks.
+    \item We randomly select a sample of flocks, and then cut each one up into very thin slices.  We then randomly select a sample of slices (called ``sections") from each flock, look at it under a microscope, and assign a number representing how porous it is (how much empty space there is in a designated region of the section).
+    \item The explanatory variables are flock and section.  The research question is whether section is explaining a significant amount of the variance in porosity -- because if not, we can use just one section per flock, and save considerable time and expense.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{SAS \texttt{proc nested}}
+%\framesubtitle{} 
+SAS \texttt{proc nested} is built specifically for pure random effects models with each explanatory variable nested within all the preceding ones.
+\begin{verbatim}
+	proc sort; by flock section; /* Data must be sorted */
+	proc nested;
+	     class flock section;
+	     var por;
+\end{verbatim} 
+You could use \texttt{proc glm}, but the \texttt{proc nested} syntax is easier and the output is nicer for this special case.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Repeated measures}
+\framesubtitle{Sometimes called \emph{within-cases}} 
+  \begin{itemize}
+    \item Sometimes an individual is tested under more than one condition, and contributes a response for each value of a categorical explanatory variable.
+    \item One can view ``subject" as just another random effects factor, because subjects supposedly were randomly sampled.
+    \item Subject would be nested within sex, but might cross stimulus intensity.
+    \item This is the classical (old fashioned) way to analyze repeated measures.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sometimes there is a lot of pretending}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item Of course lots of the time, nothing is randomly selected -- but people use random effects models anyway.  Why pretend?
+    \item Sometimes they are thinking that in a better world, lakes \emph{would have been} randomly selected. 
+    \item Or sometimes, the scientists are thinking that they really would like to generalize to the entire population of lakes, and therefore should use statistical tools that support such generalization, even if there was no random sampling.
+    \item But remember that no statistical method can compensate for a biased sample.
+    \item Often the scientists are quite aware of this point, but they use random effects models anyway because it's just a tradition in certain sub-areas of research, and everybody expects to see them.  
+
+  \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A modern approach}
+
+\begin{frame}
+\frametitle{Problems with the classical approach}
+  \begin{itemize}
+    \item Normality matters in a serious way.
+    \item Sometimes (especially for complicated mixed models) a valid $F$-test for an effect of interest just doesn't exist.
+    \item When sample sizes are unbalanced, everything falls apart. 
+        \begin{itemize}
+            \item Mean squares are independent of $MSE$, but not of one another.
+            \item Chi-squared variables involve matrix inverses, and variance terms no longer cancel in numerator and denominator.
+    \item What about covariates? Now it gets really complicated.
+        \end{itemize}
+    \item Standard large-sample methods are no help.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{A modern approach using the general mixed linear model}
+\begin{displaymath}
+    \mathbf{Y}~=~\mathbf{X} \boldsymbol{\beta} ~+~ \mathbf{Zb} ~+~\boldsymbol{\epsilon}
+\end{displaymath}
+  \begin{itemize}
+    \item $\mathbf{Y} \sim N_n(\mathbf{X}\boldsymbol{\beta}, \mathbf{Z} \boldsymbol{\Sigma}_b \mathbf{Z}^\prime + \sigma^2 I_n)$
+    \item Estimate $\boldsymbol{\beta}$ as usual with $(\mathbf{X}^\prime \mathbf{X})^{-1} 
+                   \mathbf{X}^\prime \mathbf{Y}$
+    \item Estimate $\boldsymbol{\Sigma}_b$ and $\sigma^2$ by ``restricted maximum likelihood."
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Restricted maximum likelihood}
+\begin{displaymath}
+    \mathbf{Y}~=~\mathbf{X} \boldsymbol{\beta} ~+~ \mathbf{Zb} ~+~\boldsymbol{\epsilon}
+\end{displaymath}
+%\vspace{5mm}
+
+  \begin{itemize}
+    \item Transform $\mathbf{Y}$ by the $q \times n$ matrix $\mathbf{K}$.
+    \item The rows of $\mathbf{K}$ are orthoganal to the columns of $\mathbf{X}$, meaning $\mathbf{KX} = \mathbf{0}$.
+    \item Then 
+\begin{eqnarray*}
+    \mathbf{KY} & = & \mathbf{KX} \boldsymbol{\beta} + \mathbf{KZb} + \mathbf{K}\boldsymbol{\epsilon} \\
+     & = & \mathbf{KZb} + \mathbf{K}\boldsymbol{\epsilon} \\
+     & \sim & N(\mathbf{0}, \mathbf{KZ}\boldsymbol{\Sigma}_b\mathbf{Z^\prime K^\prime} + \sigma^2 \mathbf{KK}^\prime)
+\end{eqnarray*}
+    \item Estimate $\boldsymbol{\Sigma}_b$ and $\sigma^2$ by maximum likelihood.
+    \item A big theorem says the result does not depend on the choice of $\mathbf{K}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Nice results from restricted maximum likelihood}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item $F$ statistics that correspond to the classical ones for balanced designs.
+    \item For unbalanced designs, ``$F$ statistics" that are actually excellent $F$ approximations --- not quite $F$, but very close.
+    \item SAS \texttt{proc mixed} does the job well, and has other virtues.
+    \item Like $V(\boldsymbol{\epsilon})$ can be block diagonal, with useful structures \ldots
+  \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+\frametitle{Copyright Information}
+
+This slide show was prepared by  \href{http://www.utstat.toronto.edu/~brunner}{Jerry Brunner},
+Department of Statistics, University of Toronto. It is licensed under a 
+\href{http://creativecommons.org/licenses/by-sa/3.0/deed.en_US}
+     {Creative Commons Attribution - ShareAlike 3.0 Unported License}. Use any part of it as you like and share the result freely. The \LaTeX~source code is available from the course website:
+\href{http://www.utstat.toronto.edu/~brunner/oldclass/appliedf12} {\small\texttt{http://www.utstat.toronto.edu/$^\sim$brunner/oldclass/appliedf12}}
+
+
+
+
+
+\end{frame}
+
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{}
+%\framesubtitle{} 
+  \begin{itemize}
+    \item 
+    \item 
+    \item 
+  \end{itemize}
+\end{frame}
+
+{\LARGE
+\begin{displaymath}
+    
+\end{displaymath} }
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
