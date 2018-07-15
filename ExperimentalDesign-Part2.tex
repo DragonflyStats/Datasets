@@ -1,0 +1,795 @@
+\documentclass[]{article}
+\voffset=-1.5cm
+\oddsidemargin=0.0cm
+\textwidth = 480pt
+
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage{multicol}
+%\usepackage[paperwidth=21cm, paperheight=29.8cm]{geometry}
+%\usepackage[angle=0,scale=1,color=black,hshift=-0.4cm,vshift=15cm]{background}
+%\usepackage{multirow}
+\usepackage{enumerate}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{eurosym}
+\usepackage{framed}
+
+\graphicspath{ {images/} }
+%\input def.tex
+%\input dsdef.tex
+%\input rgb.tex
+
+%\newcommand \la{\lambda}
+%\newcommand \al{a}
+%\newcommand \be{b}
+\newcommand \x{\overline{x}}
+\newcommand \y{\overline{y}}
+\begin{document}
+
+
+
+\section{Completely Randomized Design}
+
+\subsection{Questions}
+\begin{itemize}
+	\item Give the principal features of a  balanced completely randomised design, and
+	explain the role of replication in such a design.  \item State the statistical model for
+	this design, define the terms in the model and state the standard assumptions
+	made about the error term.
+	\item Briefly explain the principles of randomisation and replication, in the
+	context of a completely randomised experimental design. Write down the model equation for a completely randomised design
+	having equal numbers of replicates in all treatment groups, defining all
+	the symbols that you use.
+\end{itemize}\section{Completely Randomized Design}
+
+\subsection{Questions}
+\begin{itemize}
+	\item Give the principal features of a  balanced completely randomised design, and
+	explain the role of replication in such a design.  \item State the statistical model for
+	this design, define the terms in the model and state the standard assumptions
+	made about the error term.
+	\item Briefly explain the principles of randomisation and replication, in the
+	context of a completely randomised experimental design. Write down the model equation for a completely randomised design
+	having equal numbers of replicates in all treatment groups, defining all
+	the symbols that you use.
+\end{itemize}
+%--------------------------------------------------------%
+\section{Orthogonal Array}
+Orthogonal array testing is a systematic, statistical way of testing. Orthogonal arrays can be applied in user interface testing, system testing, regression testing, configuration testing and performance testing.
+All orthogonal vectors exhibit orthogonality. Orthogonal vectors exhibit the following properties:
+Each of the vectors conveys information different from that of any other vector in the sequence, i.e., each vector conveys unique information therefore avoiding redundancy.
+On a linear addition, the signals may be separated easily.
+Each of the vectors is statistically independent of the others.
+When linearly added, the resultant is the arithmetic sum of the individual components.
+
+
+\subsection{Two Factor Interaction}
+The effects of interest in the $2^2$ design are the  main effects A and B and the two-factor interaction AB. It is easy to estimate the effects of these factors.
+
+\begin{eqnarray}
+A = \frac{a+ab}{2n} -  \frac{b + (1)}{2n}\\
+B = \frac{b+ab}{2n} -  \frac{a + (1)}{2n}\\
+AB = \frac{ab + (1)}{2n} -  \frac{a + b}{2n}\\
+\end{eqnarray}
+
+The Sums of Squares formulae are
+\begin{eqnarray}
+SS_{A} = \frac{[(a + ab)-(b + (1))]^2}{4n^2}\\
+SS_{B} = \frac{[(b + ab)-(a + (1))]^2}{4n^2}\\
+SS_{AB} = \frac{[(ab + (1))-(a + b)]^2}{4n^2}\\
+\end{eqnarray}
+
+%---------------------------------------------------------------------%
+%---------------------------------------------------------------------%
+%---------------------------------------------------------------------%
+
+\newpage
+
+
+Blocking
+
+Factorial Designs
+
+Full Factorial Designs
+
+Fractional Factorial Designs
+
+Aliasing
+
+Interaction
+
+Sample Question
+
+
+Blocking
+
+
+Blocking is a procedure under which experimental units are grouped into "blocks" that are expected to be as alike as possible within themselves but may be consistently different from each other. 
+
+
+The blocks should then remove a possible element of systematic variation so that the residual mean square in the usual analysis of variance truly estimates just experimental error and is not inflated by such a source of consistent variation. Comparisons between treatment means are then more precise.
+
+
+Factorial Designs
+
+
+Factorial designs are the most common type of experimental design. In a factorial design several factors are controlled at two or more levels, and the effect on the response is investigated.
+
+There are two main types: Full Factorial Designs and Fractional Factorial Designs. 
+
+
+In Fractional Factorial designs the amount of testing is reduced, but the downside is that some interactions and factors are aliased. 
+
+
+One of the limitations of Fractional Factorial designs is that the number of runs is 2n, if there are more than a few factors this leads to large gaps in the available options (4, 8, 16, 32, 64, 128, etc.). Plackett-Burman designs overcome this, but at the expense of confounding. Other approaches to the Design of Experiments include Response Surface Methods and Taguchi Designs.
+
+
+
+\subsection{Full Factorial Designs}
+
+
+Factorial designs involve testing several factors at two levels, high and low. In a Full Factorial experiment every possible combination of factors and permutations is tested. If there are n factors there are 2n treatments.
+
+
+
+The design matrix shows the combinations for a 22 design
+
+
+
+
+
+
+
+
+
+
+
+Treatment
+ 
+
+A
+ 
+
+B
+ 
+
+AB
+ 
+
+
+
+1
+ 
+
+-1
+ 
+
+-1
+ 
+
++1
+ 
+
+
+
+2
+ 
+
++1
+ 
+
+-1
+ 
+
+-1
+ 
+
+
+
+3
+ 
+
+-1
+ 
+
++1
+ 
+
+-1
+ 
+
+
+
+4
+ 
+
++1
+ 
+
++1
+ 
+
++1
+ 
+
+
+\subsection{Fractional Factorial Designs}
+
+ 
+
+Factorial designs involve testing several (n) factors at two levels, high and low. A Fractional Factorial experiment uses only a half (2n-1), a quarter (2n-2), or some other division by a power of two of the number of treatments that would be required for a Full Factorial Experiment.
+
+%=======================================================%
+
+\section{THE PROS AND CONS OF FACTORIAL DESIGN}
+
+Factorial designs are extremely useful to psychologists and field scientists as a preliminary study, allowing them to judge whether there is a link between variables, whilst reducing the possibility of experimental error and confounding variables.
+
+The factorial design, as well as simplifying the process and making research cheaper, allows many levels of analysis. As well as highlighting the relationships between variables, it also allows the effects of manipulating a single variable to be isolated and analyzed singly.
+
+The main disadvantage is the difficulty of experimenting with more than two factors, or many levels. A factorial design has to be planned meticulously, as an error in one of the levels, or in the general operationalization, will jeopardize a great amount of work.
+
+Other than these slight detractions, a factorial design is a mainstay of many scientific disciplines, delivering great results in the field.
+
+
+
+Read more: http://www.experiment-resources.com/factorial-design.html#ixzz26hBQjzMY
+
+
+\subsection{Example}
+
+A Full Factorial design with 3 factors (23 design) would require 8 treatments. The example shows a 23-1 design, it requires only 4 treatments:
+
+
+
+
+
+
+
+
+
+
+
+
+Treatment
+ 
+
+A
+ 
+
+B
+ 
+
+C
+ 
+
+
+
+1
+ 
+
+-1
+ 
+
+-1
+ 
+
++1
+ 
+
+
+
+2
+ 
+
++1
+ 
+
+-1
+ 
+
+-1
+ 
+
+
+
+3
+ 
+
+-1
+ 
+
++1
+ 
+
+-1
+ 
+
+
+
+4
+ 
+
++1
+ 
+
++1
+ 
+
++1
+ 
+
+
+
+
+The Fractional Factorial design is created by aliasing Factor C with the Interaction AB. This is a Resolution III design.
+
+
+
+%--------------------------------------------------------------------------------------------------%
+\section{Fractional factorial design}
+
+(d)	Define the following terms used in fractional factorial design; Defining relation,
+Generator, Confounding, Resolution. Which design resolution is considered
+optimal?
+\section{Factorial Design}
+Factorial experiments permit researchers to study behavior under conditions in which independent variables, called in this context factors, are varied simultaneously.
+
+Thus, researchers can investigate the joint effect of two or more factors on a dependent variable. The factorial design also facilitates the study of interactions, illuminating the effects of different conditions of the experiment on the identifiable subgroups of subjects participating in the experiment.
+
+
+A full factorial experiment is an experiment whose design consists of two or more factors, each with discrete possible values or ``levels", and whose experimental units take on all possible combinations of these levels across all such factors. A full factorial design may also be called a fully-crossed design. Such an experiment allows studying the effect of each factor on the response variable, as well as the effects of interactions between factors on the response variable.
+
+For the vast majority of factorial experiments, each factor has only two levels. For example, with two factors each taking two levels, a factorial experiment would have four treatment combinations in total, and is usually called a $2\times2$ factorial design.
+
+\newpage
+%--------------------------------------------------------------------------------------------------%
+\section{Fractional factorial design}
+
+(d)	Define the following terms used in fractional factorial design; Defining relation,
+Generator, Confounding, Resolution. Which design resolution is considered
+optimal?
+\section{Factorial Design}
+Factorial experiments permit researchers to study behavior under conditions in which independent variables, called in this context factors, are varied simultaneously.
+
+Thus, researchers can investigate the joint effect of two or more factors on a dependent variable. The factorial design also facilitates the study of interactions, illuminating the effects of different conditions of the experiment on the identifiable subgroups of subjects participating in the experiment.
+
+
+A full factorial experiment is an experiment whose design consists of two or more factors, each with discrete possible values or ``levels", and whose experimental units take on all possible combinations of these levels across all such factors. A full factorial design may also be called a fully-crossed design. Such an experiment allows studying the effect of each factor on the response variable, as well as the effects of interactions between factors on the response variable.
+
+For the vast majority of factorial experiments, each factor has only two levels. For example, with two factors each taking two levels, a factorial experiment would have four treatment combinations in total, and is usually called a $2\times2$ factorial design.
+
+\newpage
+
+
+\section{Fractional factorial design}
+
+(d)	Define the following terms used in fractional factorial design; Defining relation,
+Generator, Confounding, Resolution. Which design resolution is considered
+optimal?
+
+
+
+
+\section{What is an interaction?}
+
+%%- http://support.minitab.com/en-us/minitab/17/topic-library/modeling-statistics/anova/anova-models/what-is-an-interaction/
+
+When the effect of one factor depends on the level of the other factor. You can use an interaction plot to visualize possible interactions.
+
+Parallel lines in an interaction plot indicate no interaction. The greater the difference in slope between the lines, the higher the degree of interaction. However, the interaction plot doesn't alert you if the interaction is statistically significant.
+
+Example of an interaction plot
+For example, cereal grains must be dry enough before the packaging process. Lab technicians collect moisture data on grains at several oven times and temperatures.
+
+
+This plot indicates an interaction between the oven temperature and oven time. The grain has a lower moisture percentage when baked for a time of 60 minutes as opposed to 30 minutes at 125 and 130 degrees. However, when the temperature is 135 degrees, the grain has a lower moisture percentage when baked for 30 minutes.
+Interaction plots are most often used to visualize interactions during ANOVA or DOE.
+
+Minitab draws a single interaction plot if you enter two factors, or a matrix of interaction plots if you enter more than two factors.
+
+
+\section{Orthogonal Arrays}
+Orthogonal array testing is a systematic, statistical way of testing. Orthogonal arrays can be applied in user interface testing, system testing, regression testing, configuration testing and performance testing.
+All orthogonal vectors exhibit orthogonality. Orthogonal vectors exhibit the following properties:
+Each of the vectors conveys information different from that of any other vector in the sequence, i.e., each vector conveys unique information therefore avoiding redundancy.
+On a linear addition, the signals may be separated easily.
+Each of the vectors is statistically independent of the others.
+When linearly added, the resultant is the arithmetic sum of the individual components.
+
+%http://www.me.mtu.edu/~jwsuther/doe2005/notes/orth_arrays.pdf
+%
+%http://www.weibull.com/DOEWeb/taguchis_orthogonal_arrays.htm
+%
+%http://controls.engin.umich.edu/wiki/index.php/Design_of_experiments_via_taguchi_methods:_orthogonal_arrays
+%
+%http://elsmar.com/Taguchi.html 
+
+\newpage
+
+
+
+
+
+
+Aliasing
+
+
+In experimental design when two interactions, or a main effect and an interaction, share the same column, and so cannot be individually analyzed then their effects are aliased.
+
+In the 23-1 design the factor C is aliased with the interaction AB:
+
+
+
+
+
+
+
+
+
+
+
+Treatment
+ 
+
+A
+ 
+
+B
+ 
+
+AB + C
+ 
+
+
+
+1
+ 
+
+-1
+ 
+
+-1
+ 
+
++1
+ 
+
+
+
+2
+ 
+
++1
+ 
+
+-1
+ 
+
+-1
+ 
+
+
+
+3
+ 
+
+-1
+ 
+
++1
+ 
+
+-1
+ 
+
+
+
+4
+ 
+
++1
+ 
+
++1
+ 
+
++1
+ 
+
+When the design is analyzed it is not possible to distinguish between the effects of changes in the settings of factor C or the effects of an interaction between factors A and C. Thus this design would only be useful if you believed, from other information, that interactions between A and C would not be significant.
+
+
+\subsection{Interaction}
+
+In many processes the factors interact, the combined effect is not the sum of the individual effects. The figure below uses the well known danger of combining alcohol with some medications to illustrate the idea:
+
+
+
+
+
+
+
+
+
+ 
+
+
+Interactions are an important consideration in experimental design.
+
+
+Sample Question
+
+
+Explain what is meant by the main effect of a factor and the interaction between two factors in a 22 factorial experiment.
+
+•
+The main effect of a factor in a 22 experiment is the difference between the results with the factor at its high level and those with it at its low level; thus, for factor A, it is given by ab + a – (b + (1)) 
+
+
+•
+[an average difference might be used, i.e. with a divisor of 2]. 
+
+
+•
+Similarly, for B it is given by ab + b – (a + (1)).
+
+
+•
+The remaining independent comparison that is possible is ab + (1) – (a + b). 
+
+
+•
+By rearranging this as (ab – b) – (a – (1)), it can be seen to measure the difference between the "responses" to factor A at the high level of B and those at the low level of B. 
+
+
+•
+Equivalently, the roles of A and B can be interchanged throughout this. It is called the interaction between A and B.
+
+%------------------------------------------------%
+% 3
+\newpage
+\section{Effect Size}
+Effect size (ES) is a name given to a family of indices that measure the magnitude of
+a treatment effect. Unlike significance tests, these indices are independent of sample
+size. ES measures are the common currency of meta-analysis studies that summarize
+the findings from a specific area of research. See, for example, the influential metaanalysis
+of psychological, educational, and behavioral treatments by Lipsey and
+Wilson (1993).
+There is a wide array of formulas used to measure ES. For the occasional reader of
+meta-analysis studies, like myself, this diversity can be confusing. One of my
+objectives in putting together this set of lecture notes was to organize and summarize
+the various measures of ES.
+In general, ES can be measured in two ways:
+a) as the standardized difference between two means, or
+b) as the correlation between the independent variable classification and the
+individual scores on the dependent variable. This correlation is called the "effect size
+correlation" (Rosnow & Rosenthal, 1996).
+
+%----------------%
+\section{Meta Analysis}
+
+A meta-analysis is a summary of previous research that uses quantitative methods to
+compare outcomes across a wide range of studies. Traditional statistics such as t tests
+or F tests are inappropriate for such comparisons because the values of those
+statistics are partially a function of the sample size. Studies with equivalent
+differences between treatment and control conditions can have widely varying t and
+F statistics if the studies have different sample sizes. Meta analyses use some
+estimate of effect size because effect size estimates are not influenced by sample
+sizes. Of the effect size estimates that were discussed earlier in this page, the most
+common estimate found in current meta analyses is Cohen's d.
+
+
+\newpage
+
+\section{Introduction to Latin Squares}
+
+A Latin square is used in experimental designs in which one wishes to compare treatments and to control for two other known sources of variation. To use a Latin square for an experiment comparing n treatments we will need to have n levels for each of the two sources of variation for which we wish to control.
+
+
+Latin squares were first used in agricultural experiments. It was recognized that within a field there would be fertility trends running both across the field and up and down the field. So in an experiment to test,say, four different fertilisers, A, B, C and D, the field would divided into four horizontal strips and four vertical strips, thus producing 16 smaller plots. A Latin square design will give a random allocation of fertiliser type to a plot in such a way that each fertiliser type is used once in each horizontal strip (row) and once in each vertical strip (column).
+
+
+\subsection{Example of Latin Square Design}
+
+
+Suppose that we want to test five drugs A;B;C;D;E for their effect in alleviating the symptoms of a chronic disease. Five patients are available for a trial, and each will be available for five weeks. Testing a single drug requires a week. Thus an experimental unit is a ‘patient-week’.
+
+
+The structure of the experimental units is a rectangular grid (which happens to be square in this case); there is no structure on the set of treatments. We can use the Latin square to allocate treatments. If the rows of the square represent patients and the columns are weeks, then for example the second patient, in the third week of the trial, will be given drug D. Now each patient receives all five drugs, and in each week all five drugs are tested.
+
+
+%- https://onlinecourses.science.psu.edu/stat503/node/21
+Design of Experiments
+
+Blocking - The Latin Square Design
+
+
+Latin Square Designs are probably not used as much as they should be - they are very efficient designs. Latin square designs allow for two blocking factors. In other words, these designs are used to simultaneously control (or eliminate) two sources of nuisance variability. For instance, if you had a plot of land the fertility of this land might change in both directions, North -- South and East -- West due to soil or moisture gradients. So, both rows and columns can be used as blocking factors. However, you can use Latin squares in lots of other settings. As we shall see, Latin squares can be used as much as the RCBD in industrial experimentation as well as other experiments.
+
+Whenever, you have more than one blocking factor a Latin square design will allow you to remove the variation for these two sources from the error variation. So, consider we had a plot of land, we might have blocked it in columns and rows, i.e. each row is a level of the row factor, and each column is a level of the column factor. We can remove the variation from our measured response in both directions if we consider both rows and columns as factors in our design.
+
+The Latin Square Design gets its name from the fact that we can write it as a square with Latin letters to correspond to the treatments. The treatment factor levels are the Latin letters in the Latin square design. The number of rows and columns has to correspond to the number of treatment levels. So, if we have four treatments then we would need to have four rows and four columns in order to create a Latin square. This gives us a design where we have each of the treatments and in each row and in each column.
+
+
+
+This is just one of many 4×4 squares that you could create. In fact, you can make any size square you want, for any number of treatments - it just needs to have the following property associated with it - that each treatment occurs only once in each row and once in each column.
+
+Consider another example in an industrial setting: the rows are the batch of raw material, the columns are the operator of the equipment, and the treatments (A, B, C and D) are an industrial process or protocol for producing a particular product.
+
+What is the model? We let:
+
+yijk = μ + ρi + βj + τk + eijk
+
+i = 1, ... , t
+j = 1, ... , t
+[k = 1, ... , t] where - k = d(i, j) and the total number of observations
+
+N = t2 (the number of rows times the number of columns) and t is the number of treatments.
+
+Note that a Latin Square is an incomplete design, which means that it does not include observations for all possible combinations of i, j and k.  This is why we use notation k = d(i, j).  Once we know the row and column of the design, then the treatment is specified. In other words, if we know i and j, then k is specified by the Latin Square design.
+
+This property has an impact on how we calculate means and sums of squares, and for this reason we can not use the balanced ANOVA command in Minitab even though it looks perfectly balanced. We will see later that although it has the property of orthogonality, you still cannot use the balanced ANOVA command in Minitab because it is not complete.
+
+An assumption that we make when using a Latin square design is that the three factors (treatments, and two nuisance factors) do not interact. If this assumption is violated, the Latin Square design error term will be inflated.
+
+The randomization procedure for assigning treatments that you would like to use when you actually apply a Latin Square, is somewhat restricted to preserve the structure of the Latin Square. The ideal randomization would be to select a square from the set of all possible Latin squares of the specified size.  However, a more practical randomization scheme would be to select a standardized Latin square at random (these are tabulated) and then:
+
+\begin{itemize}
+	\item randomly permute the columns,
+	\item randomly permute the rows, and then
+	\item assign the treatments to the Latin letters in a random fashion.
+\end{itemize}
+
+\subsection{Motivation of LSD}
+
+Consider  a factory setting where you are producing a product with 4 operators and 4 machines. We call the columns the operators and the rows the machines. Then you can randomly assign the specific operators to a row and the specific machines to a column. The treatment is one of four protocols for producing the product and our interest is in the average time needed to produce each product.  If both the machine and the operator have an effect on the time to produce, then by using a Latin Square Design this variation due to machine or operators will be effectively removed from the analysis.
+
+The following table gives the degrees of freedom for the terms in the model.
+
+AOV
+df
+df for the example
+Rows
+t-1
+3
+Cols
+t-1
+3
+Treatments
+t-1
+3
+Error
+(t-1)(t-2)
+6
+Total
+(t2 - 1)
+15
+
+A Latin Square design is actually easy to analyze.  Because of the restricted layout, one observation per treatment in each row and column, the model is orthogonal.
+
+If the row, ρi, and column, βj, effects are random with expectations zero, the expected value of Yijk is μ + τk. In other words, the treatment effects and treatment means are orthogonal to the row and column effects.  We can also write the sums of squares, as seen in Table 4.10 in the text.
+
+We can test for row and column effects, but our focus of interest in a Latin square design is on the treatments. Just as in RCBD, the row and column factors are included to reduce the error variation but are not typically of interest. And, depending on how we've conducted the experiment they often haven't been randomized in a way that allows us to make any reliable inference from those tests.
+
+Note: if you have missing data then you need to use the general linear model and test the effect of treatment after fitting the model that would account for the row and column effects.
+
+
+In general, the General Linear Model tests the hypothesis that:
+
+Ho : τi = 0   vs.   Ha : τi ≠ 0
+
+To test this hypothesis we will look at the F-ratio which is written as:
+
+% F=MS(τk|μ,ρi,βj)MSE(μ,ρi,βj,τk)∼F((t−1),(t−1)(t−2))
+
+To get this in Minitab you would use GLM and fit the three terms: rows, columns and treatments. The F statistic is based on the adjusted MS for treatment.
+
+The Rocket Propellant Problem – A Latin Square Design (Table 4.9 in 8th ed and Table 4-8in 7th ed)
+
+table 4.8
+
+Table 4-13 (4-12 in 7th ed) shows some other Latin Squares from t = 3 to t = 7 and states the number of different arrangements available.
+
+Statistical Analysis of the Latin Square Design
+The statistical (effects) model is:
+
+% Yijk=μ+ρi+βj+τk+εijk⎧⎩⎨⎪⎪i=1,2,…,pj=1,2,…,pk=1,2,…,p
+
+but k = d(i, j) shows the dependence of k in the cell i, j on the design layout, and p = t the number of treatment levels.
+
+The statistical analysis (ANOVA) is much like the analysis for the RCBD.
+
+See the ANOVA table, Table 4.10 (Table 4-9 in 7th ed)
+
+The analysis for the rocket propellant example is presented in Example 4.3.
+
+\newpage
+\begin{itemize}
+\item Orthogonal array testing is a systematic, statistical way of testing. 
+\item Orthogonal arrays can be applied in user interface testing, system testing, regression testing, configuration testing and performance testing.
+\item All orthogonal vectors exhibit orthogonality. 
+\item Orthogonal vectors exhibit the following properties:
+\item Each of the vectors conveys information different from that of any other vector in the sequence, i.e., each vector conveys unique information therefore avoiding redundancy.
+\item On a linear addition, the signals may be separated easily.
+\item Each of the vectors is statistically independent of the others.
+\item When linearly added, the resultant is the arithmetic sum of the individual components.
+\end{itemize}
+
+%http://www.me.mtu.edu/~jwsuther/doe2005/notes/orth_arrays.pdf
+%
+%http://www.weibull.com/DOEWeb/taguchis_orthogonal_arrays.htm
+%
+%http://controls.engin.umich.edu/wiki/index.php/Design_of_experiments_via_taguchi_methods:_orthogonal_arrays
+%
+%http://elsmar.com/Taguchi.html 
+\newpage
+
+%--------------------------------------------------------%
+\section{Orthogonal Array}
+Orthogonal array testing is a systematic, statistical way of testing. Orthogonal arrays can be applied in user interface testing, system testing, regression testing, configuration testing and performance testing.
+All orthogonal vectors exhibit orthogonality. Orthogonal vectors exhibit the following properties:
+Each of the vectors conveys information different from that of any other vector in the sequence, i.e., each vector conveys unique information therefore avoiding redundancy.
+On a linear addition, the signals may be separated easily.
+Each of the vectors is statistically independent of the others.
+When linearly added, the resultant is the arithmetic sum of the individual components.
+
+
+\subsection{Two Factor Interaction}
+The effects of interest in the $2^2$ design are the  main effects A and B and the two-factor interaction AB. It is easy to estimate the effects of these factors.
+
+\begin{eqnarray}
+A = \frac{a+ab}{2n} -  \frac{b + (1)}{2n}\\
+B = \frac{b+ab}{2n} -  \frac{a + (1)}{2n}\\
+AB = \frac{ab + (1)}{2n} -  \frac{a + b}{2n}\\
+\end{eqnarray}
+
+The Sums of Squares formulae are
+\begin{eqnarray}
+SS_{A} = \frac{[(a + ab)-(b + (1))]^2}{4n^2}\\
+SS_{B} = \frac{[(b + ab)-(a + (1))]^2}{4n^2}\\
+SS_{AB} = \frac{[(ab + (1))-(a + b)]^2}{4n^2}\\
+\end{eqnarray}
+
+%---------------------------------------------------------------------%
+%---------------------------------------------------------------------%
+%---------------------------------------------------------------------%
+
+
+\subsection{immer data set}
+
+
+Yields from a Barley Field Trial
+
+Description
+
+
+The immer data frame has 30 rows and 4 columns. 
+
+Five varieties of barley were grown in six locations in each of 1931 and 1932.
+
+
+The variety of barley ("manchuria", "svansota", "velvet", "trebi" and "peatland").
+
+\begin{description}
+\item[Y1:]    Yield in 1931.
+
+\item[Y2:]    Yield in 1932.
+\end{description}
+
+Taguchi
+
+
+% http://www.statsoft.com/textbook/experimental-design/#taguchi
+
+
+
+
+
+\end{document}
